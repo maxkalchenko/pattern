@@ -2,27 +2,41 @@ import React, { Component } from 'react';
 
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-import Signup from './Signup';
-import Navbar from './Navbar';
+import Signup from './common/Signup';
+import Navbar from './common/Navbar';
+import Modal from './modals/Modal';
+import ContextMenu from './contextmenu/ContextMenu'
+
+import Posts from '../pages/Posts';
 
 import '../styles/app.css';
 
 class App extends Component {
+    componentDidMount() {
+        console.log('APP DidMount');
+    }
+
     render() {
-        let component = () => <div style={{
-            margin: '5px',
-            padding: '.375rem .75rem',
-            borderRadius: '.25rem'
-        }}>Welcome to my site</div>;
+        let component = () =>
+            <div className='text-center' style={{ paddingTop: '100px' }}>
+                <h1>Oops!</h1>
+                <h2>404 Not Found</h2>
+                <p>Sorry, an error has occured, Requested page not ready yet.</p>
+            </div>;
 
         return (
             <BrowserRouter>
                 <div className='app'>
                     <Navbar/>
-                    <Switch>
-                        <Route path='/signup' component={Signup}/>
-                        <Route component={component}/>
-                    </Switch>
+                    <div className='container'>
+                        <Switch>
+                            <Route path='/signup' component={Signup}/>
+                            <Route path='/community' component={Posts}/>
+                            <Route component={component}/>
+                        </Switch>
+                    </div>
+                    <Modal/>
+                    <ContextMenu/>
                 </div>
             </BrowserRouter>
         );

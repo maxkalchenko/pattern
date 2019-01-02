@@ -1,40 +1,32 @@
 import axios from 'axios';
-// import { defaults } from '../../../utils/axios';
-// import { AUTH_SUCCESS } from '../../actions/action-types';
-// import CONFIG from '../../../config';
+import jwtDecode from 'jwt-decode';
 
-// export const auth = (username, password) => {
-//     const data = {
-//         grant_type: 'password',
-//         client_id: 'ngAuthApp',
-//         userName: username,
-//         password: password
-//     };
+import { defaults } from '../../../utils/axios';
+import { AUTH_SUCCESS, LOGOUT } from '../../actions/action-types';
 
-//     let body = [];
+export const auth = params => {
+    const data = {
+        grant_type: 'password',
+        ...params
+    };
 
-//     Object.keys(data).forEach(key => {
-//         body.push(encodeURIComponent(key) + '=' + encodeURIComponent(data[key]));
-//     });
+    return dispatch => {
+        return axios({
+            method: 'POST',
+            url: '/api/token',
+            data: data
+        }).then(response => {
+            const { username } = jwtDecode(response.data.access_token);
 
-//     return dispatch => {
-//         axios({
-//             method: 'POST',
-//             url: CONFIG.API_URL + 'token',
-//             data: body.join('&'),
-//             headers: {
-//                 'Content-Type': 'application/x-www-form-urlencoded'
-//             }
-//         }).then(response => {
-//             defaults(response.data);
+            defaults(response.data);
 
-//             dispatch({
-//                 type: AUTH_SUCCESS,
-//                 payload: response.data.userName
-//             });
-//         });
-//     };
-// };
+            dispatch({
+                type: AUTH_SUCCESS,
+                payload: username
+            });
+        });
+    };
+};
 
 export const signup = user => {
     return dispatch => {
@@ -43,8 +35,18 @@ export const signup = user => {
             url: '/api/users',
             data: user
         }).then(() => {
-            debugger;
-            // auth(user.userName, user.password)(dispatch);
+            auth(user.userName, user.password)(dispatch);
         });
+    };
+};
+
+export const logout = () => {
+    localStorage.removeItem('token');
+
+    // window.history.pushState({}, '', '/');
+    // window.location.reload();
+
+    return {
+        type: LOGOUT
     };
 };

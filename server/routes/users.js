@@ -13,8 +13,6 @@ function validateInput(data) {
         where: { email: data.email },
         orWhere: { username: data.username }
     }).fetch().then(user => {
-        console.log(user);
-
         if (user) {
             if (user.get('username') === data.username) {
                 errors.username = 'There is user with such username';
@@ -45,10 +43,9 @@ router.post('/', (req, res) => {
             }, {
                 hasTimestamps: true
             }).save()
-            .then(user => res.json({ success: true }))
+            .then(() => res.json({ success: true }))
             .catch(err => res.status(500).json({ error: err }));
         });
-    // res.status(404).json({ error: 'Not Found Again' });
 });
 
 export default router;

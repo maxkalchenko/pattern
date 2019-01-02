@@ -8,13 +8,18 @@ import webpackHotMiddleware from 'webpack-hot-middleware';
 import webpackConfig from '../webpack.config.dev';
 
 import users from './routes/users';
+import auth from './routes/auth';
+import posts from './routes/posts';
 
 let app = express();
 
 const compiler = webpack(webpackConfig);
 
 app.use(bodyParser.json());
+
 app.use('/api/users', users);
+app.use('/api/posts', posts);
+app.use('/api/token', auth);
 app.use('/server', express.static('server'));
 
 app.use(webpackMiddleware(compiler, {

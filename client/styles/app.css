@@ -11,6 +11,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
+body, .form-control, .modal-content {
+  background-color: #e7e7e7;
+}
+
+/*
 .app {
   text-align: center;
   margin-bottom: 10px;
@@ -19,7 +24,6 @@ code {
 .navbar {
   padding: 10px;
   background-color: #282c34;
-  /* min-height: 5vh; */
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -33,3 +37,4 @@ code {
   padding-left: 10px;
   padding-right: 10px;
 }
+*/
