@@ -1,9 +1,8 @@
-import { CONTEXT_MENU_OPEN, CONTEXT_MENU_CLOSE, CONTEXT_MENU_CLOSE_AND_OPEN } from '../../actions/action-types';
+import { CONTEXT_MENU_OPEN, CONTEXT_MENU_CLOSE, CONTEXT_MENU_REOPEN } from '../../actions/action-types';
 
 const initialState = {
     isOpen: false,
     reOpen: false,
-    type: undefined,
     data: undefined,
     x: undefined,
     y: undefined
@@ -17,7 +16,7 @@ export const contextMenuReducer = (state = initialState, action) => {
                 reOpen: false,
                 isOpen: true
             };
-        case CONTEXT_MENU_CLOSE_AND_OPEN:
+        case CONTEXT_MENU_REOPEN:
             return {
                 ...state,
                 ...action.payload,

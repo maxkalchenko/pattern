@@ -15,6 +15,10 @@ body, .form-control, .modal-content {
   background-color: #e7e7e7;
 }
 
+.context-menu-open {
+  background: rgba(0,0,0,0.2);
+}
+
 /*
 .app {
   text-align: center;

@@ -11,24 +11,32 @@ router.post('/', (req, res) => {
         return res.status(400).json();
     }
 
-    Post.forge({
-        username, text
-    }, {
-        hasTimestamps: true
-    }).save()
-    .then(() => res.json({ success: true }))
-    .catch(err => res.status(500).json({ error: err }));
+    Post.create({ username, text })
+        .then(result => res.json(result.attributes))
+        .catch(err => res.status(500).json({ error: err }));
+});
+
+router.delete('/', (req, res) => {
+    const { id } = req.body;
+
+    Post.destroy({ id: id })
+        .then(() => res.status(200).json())
+        .catch(err => res.status(500).json({ error: err }));
+});
+
+router.put('/', (req, res) => {
+    const { id, text } = req.body;
+
+    Post.update({ text: text }, { id: id })
+        .then(() => res.status(200).json())
+        .catch(err => res.status(500).json({ error: err }));
 });
 
 router.get('/', (req, res) => {
     Post.collection({})
         .fetch()
-        .then(posts => {
-            res.json(posts);
-        });
+        .then(posts => res.json(posts))
+        .catch(err => res.status(500).json({ error: err }));
 });
-
-// router.put('/', (req, res) => {});
-// router.delete('/', (req, res) => {});
 
 export default router;

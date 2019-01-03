@@ -1,19 +1,47 @@
 import axios from 'axios';
 
-import { GET_POSTS, ADD_POST } from '../../actions/action-types';
+import { GET_POSTS, CREATE_POST, DELETE_POST, UPDATE_POST } from '../../actions/action-types';
 
-export const add = params => {
-    const data = { ...params };
-
+export const add = data => {
     return dispatch => {
         return axios({
             method: 'POST',
             url: '/api/posts',
             data: data
+        }).then(result => {
+            dispatch({
+                type: CREATE_POST,
+                payload: result.data
+            });
+        });
+    };
+};
+
+export const remove = data => {
+    return dispatch => {
+        return axios({
+            method: 'DELETE',
+            url: '/api/posts',
+            data: data
         }).then(() => {
             dispatch({
-                type: ADD_POST,
-                payload: { ...params }
+                type: DELETE_POST,
+                payload: data
+            });
+        });
+    };
+};
+
+export const update = data => {
+    return dispatch => {
+        return axios({
+            method: 'PUT',
+            url: '/api/posts',
+            data: data
+        }).then(() => {
+            dispatch({
+                type: UPDATE_POST,
+                payload: data
             });
         });
     };
@@ -21,7 +49,7 @@ export const add = params => {
 
 export const get = user => {
     return dispatch => {
-        axios({
+        return axios({
             method: 'GET',
             url: '/api/posts',
             data: user

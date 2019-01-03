@@ -5,11 +5,9 @@ import { bindActionCreators } from 'redux';
 
 import { closeContextMenu, reOpenContextMenu  } from '../../store/reducers/contextmenu/actions';
 
-import menus from './menu-types';
-
 class ContextMenu extends Component {
     render() {
-        let { isOpen, reOpen, type, data, x, y, closeContextMenu, reOpenContextMenu } = this.props;
+        let { isOpen, reOpen, data, x, y, closeContextMenu, reOpenContextMenu } = this.props;
 
         if (reOpen) {
             setTimeout(() => {
@@ -32,6 +30,13 @@ class ContextMenu extends Component {
             return null;
         }
 
+         // TODO: handle this differently
+        if ((data || []).filter(item => item.check).length === 0) {
+            setTimeout(closeContextMenu, 0);
+
+            return null;
+        }
+
         return (
             <>
                 <div className='modal-backdrop show' 
@@ -39,10 +44,17 @@ class ContextMenu extends Component {
                     onContextMenu={reOpenContextMenu} 
                     onClick={closeContextMenu}>
                 </div>
-                <div className={y > window.innerHeight / 2 ? 'dropup' : 'dropdown'}
+                <div className={y > window.innerHeight / 2 ? 'dropup' : 'dropdown'} onClick={closeContextMenu}
                     onContextMenu={event => event.preventDefault()} style={{ top: y, left: x, position: 'fixed', zIndex: 1050 }}>
                     <ul className='dropdown-menu' role='menu' style={{ display: 'block' }}>
-                        {menus[type](data)}
+                        {data.filter(item => item.check)
+                            .map((item, index) => 
+                                <li style={{ width: '100%'}} onClick={item.action} key={index}>
+                                    <a style={{ display: 'block', padding: '3px 20px', color: '#333' }} href='javascript:void(0)'>
+                                        {item.icon && <i className={'fa ' + item.icon}></i>} {item.label}
+                                    </a>
+                                </li>
+                            )}
                     </ul>
                 </div>
             </>

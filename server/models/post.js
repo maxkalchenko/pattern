@@ -1,5 +1,6 @@
+import modelbase from 'bookshelf-modelbase';
 import bookshelf from '../bookshelf';
 
-export default bookshelf.Model.extend({
+export default modelbase(bookshelf).extend({
   tableName: 'posts'
 });

@@ -1,32 +1,21 @@
 
-import { CONTEXT_MENU_OPEN, CONTEXT_MENU_CLOSE, CONTEXT_MENU_CLOSE_AND_OPEN } from '../../actions/action-types';
-import { POSTS_CONTEXT_MENU } from '../../../components/contextmenu/menu-types';
+import { CONTEXT_MENU_OPEN, CONTEXT_MENU_CLOSE, CONTEXT_MENU_REOPEN } from '../../actions/action-types';
 
 let y = 0;
-let noScroll = () => window.scrollTo(0, y);
+let target = null;
 
-export const openPostsContextMenu = (event, data) => {
-    event.preventDefault();
-    event.stopPropagation();
-
-    let { clientX, forceX, clientY, forceY } = event.nativeEvent;
-
-    y = window.scrollY;
-    window.addEventListener('scroll', noScroll, true);
-
+export const openContextMenu = (event, data) => {
     return {
         type: CONTEXT_MENU_OPEN,
         payload: {
-            type: POSTS_CONTEXT_MENU,
             data: data,
-            y: clientY || forceY,
-            x: clientX || forceX
+            ...onOpen(event)
         }
     };
 };
 
 export const closeContextMenu = () => {
-    window.removeEventListener('scroll', noScroll, true);
+    onClose();
 
     return {
         type: CONTEXT_MENU_CLOSE
@@ -34,20 +23,48 @@ export const closeContextMenu = () => {
 };
 
 export const reOpenContextMenu = event => {
+    onClose();
+
     event.preventDefault();
     event.stopPropagation();
-    
-    window.removeEventListener('scroll', noScroll, true);
 
     let { clientX, clientY } = event;
 
-    // console.log('reOpenContextMenu', clientX, clientY);
-
     return {
-        type: CONTEXT_MENU_CLOSE_AND_OPEN,
+        type: CONTEXT_MENU_REOPEN,
         payload: {
             y: clientY,
             x: clientX
         }
     };
 };
+
+function onOpen(event) {
+    target = event.currentTarget;
+    target.classList.add('context-menu-open');
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    let { clientX, forceX, clientY, forceY } = event.nativeEvent;
+
+    y = window.scrollY;
+
+    window.addEventListener('scroll', noScroll, true);
+
+    return {
+        y: clientY || forceY,
+        x: clientX || forceX
+    };
+}
+
+function onClose() {
+    target.classList.remove('context-menu-open');
+    target = null;
+    
+    window.removeEventListener('scroll', noScroll, true);
+}
+
+function noScroll() {
+    window.scrollTo(0, y);
+}
