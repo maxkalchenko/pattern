@@ -32,16 +32,26 @@ class Posts extends Component {
     add(event) {
         event.preventDefault();
 
-        this.props.add({ username: this.props.username, text: this.state.text })
+        this.props.add({ text: this.state.text })
             .then(() => this.setState({ ...this.state, text: '' }));
     }
 
     onEdit(post) {
-        this.setState({ ...this.state, editMode: true, editId: post.id, editText: post.text });
+        this.setState({
+            ...this.state,
+            editMode: true,
+            editId: post.id,
+            editText: post.text
+        });
     }
 
     finishEdit() {
-        this.setState({ ...this.state, editMode: false, editId: 0,editText: '' });
+        this.setState({
+            ...this.state,
+            editMode: false,
+            editId: 0,
+            editText: ''
+        });
     }
 
     save(event, post) {
@@ -69,14 +79,14 @@ class Posts extends Component {
                                 icon: 'fa-trash',
                                 check: username === post.username
                             }])}>
-                            {this.state.editId === post.id ? 
+                            {username && this.state.editId === post.id ? 
                                 <>
                                     <form name='editForm' onSubmit={event => this.save(event, { ...post, text: this.state.editText })} className='col col-md-12'>
                                         <div className='form-group'>
                                             <input autoFocus autoComplete='on' className='form-control' type='text' onChange={this.changeValue.bind(this, 'editText')} value={this.state.editText}/>
                                         </div>
                                         <button className='btn btn-dark pull-right' disabled={this.state.editText.length === 0 || this.state.editText === post.text} type='submit'>Save</button>
-                                        <button className='btn pull-right' onClick={this.finishEdit.bind(this)} type='button'>Cancel</button>
+                                        <button className='btn pull-right' onClick={() => this.finishEdit()} type='button'>Cancel</button>
                                     </form>
                                 </> :
                                 <>

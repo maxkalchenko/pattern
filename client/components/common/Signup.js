@@ -44,26 +44,26 @@ class Signup extends Component {
             name: 'username',
             label: 'Username:',
             type: 'text',
-            error: this.state.username.length === 0,
-            errorMessage: 'This field is required'
+            error: this.state.username.length === 0 || this.state.username.length > 255,
+            errorMessage: this.state.username.length === 0 ? 'This field is required' : 'Invalid username'
         }, {
             name: 'email',
             label: 'Email:',
             type: 'email',
-            error: this.state.email.length === 0,
-            errorMessage: 'This field is required'
+            error: !/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(this.state.email),
+            errorMessage: this.state.email.length === 0 ? 'This field is required' : 'Invalid email'
         }, {
             name: 'password',
             label: 'Password:',
             type: 'password',
-            error: this.state.password.length === 0,
-            errorMessage: 'This field is required'
+            error: this.state.password.length <= 6 || this.state.password.length > 255,
+            errorMessage: this.state.password.length < 6 ? 'Length should be more than 6' : 'Invalid password'
         }, {
             name: 'confirmPassword',
             label: 'Confirm password:',
             type: 'password',
-            error: this.state.password.length === 0 || this.state.password !== this.state.confirmPassword,
-            errorMessage: this.state.password.length === 0 ? 'This field is required' : 'Passwords must match'
+            error: this.state.confirmPassword.length === 0 || this.state.password !== this.state.confirmPassword,
+            errorMessage: this.state.confirmPassword.length === 0 ? 'This field is required' : 'Passwords must match'
         }];
 
         return (

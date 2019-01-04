@@ -28,7 +28,6 @@ class LoginModal extends Component {
 
         this.props.auth(this.state)
             .then(() => {
-                window.history.pushState({}, '', '/');
                 window.location.reload();
 
                 // this.props.closeModal();

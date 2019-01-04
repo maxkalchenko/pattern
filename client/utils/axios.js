@@ -1,5 +1,8 @@
 import axios from 'axios';
 
+import { store } from '../store/store';
+import { openLoginModal } from '../store/reducers/modal/actions';
+
 export const defaults = token => {
     if (token) {
         localStorage.setItem('token', JSON.stringify({
@@ -49,7 +52,7 @@ axios.interceptors.response.use(res => res, error => {
 
         refreshToken = axios({
             method: 'POST',
-            url: '/api/token',
+            url: '/api/token/refresh',
             data: data
         });
     }
@@ -65,6 +68,7 @@ axios.interceptors.response.use(res => res, error => {
 
         return axios({
             ...config,
+            data: JSON.parse(config.data),
             headers: {
                 'Authorization': 'Bearer ' + response.data.access_token
             }
@@ -72,7 +76,6 @@ axios.interceptors.response.use(res => res, error => {
     }, () => {
         localStorage.removeItem('token');
 
-        window.history.pushState({}, '', '/');
-        window.location.reload();
+        store.dispatch(openLoginModal());
     });
 });

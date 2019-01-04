@@ -5,14 +5,39 @@ import config from '../config';
 
 let router = express.Router();
 
+let refreshTokens = {};
+
 router.post('/', (req, res) => {
-    const { identifier, password } = req.body;
+    getUser(req.body, res);
+});
+
+
+router.post('/refresh', (req, res) => {
+    const { refresh_token } = req.body;
+
+    let user = refreshTokens[refresh_token];
+
+    delete refreshTokens[refresh_token];
+
+    if (!user) {
+        return res.status(404).json({ errors: 'Not found' });
+    }
+
+    getUser(user, res);
+});
+
+function getUser(user, res) {
+    const { identifier, password } = user;
 
     User.query({
         where: { username: identifier },
         orWhere: { email: identifier }
     }).fetch().then(user => {
         if (user && password === user.get('password_digest')) {
+            let refresh = Date.now().toString();
+
+            refreshTokens[refresh] = { identifier, password };
+
             res.json({
                 access_token: jwt.sign({
                     username: user.get('username')
@@ -21,7 +46,7 @@ router.post('/', (req, res) => {
                     expiresIn: '1h'
                 }),
                 // TODO: refactor
-                refresh_token: Date.now().toString()
+                refresh_token: refresh
             });
 
             return;
@@ -29,6 +54,6 @@ router.post('/', (req, res) => {
         
         res.status(401).json({ errors: { form: 'Invalid Credentials' } });
     });
-});
+}
 
 export default router;
