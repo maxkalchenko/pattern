@@ -73,9 +73,11 @@ axios.interceptors.response.use(res => res, error => {
                 'Authorization': 'Bearer ' + response.data.access_token
             }
         });
-    }, () => {
+    }, error => {
         localStorage.removeItem('token');
 
         store.dispatch(openLoginModal());
+
+        return Promise.reject(error);
     });
 });

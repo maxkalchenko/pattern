@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -69,7 +70,12 @@ class LoginModal extends Component {
     }
 }
 
-const putStateToProps = state => state;
+LoginModal.propTypes = {
+    onClose: PropTypes.func,
+    auth: PropTypes.func
+};
+
+const putStateToProps = () => ({});
 
 const putActionsToProps = (dispatch) => {
     return {

@@ -1,3 +1,4 @@
 export default {
-    jwtSecret: 'taylorswift'
+    jwtSecret: 'taylorswift',
+    expiresIn: '1h'
 }

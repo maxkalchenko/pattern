@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -61,6 +62,21 @@ class ContextMenu extends Component {
         );
     }
 }
+
+ContextMenu.propTypes = {
+    isOpen: PropTypes.bool,
+    reOpen: PropTypes.bool,
+    closeContextMenu: PropTypes.func,
+    reOpenContextMenu: PropTypes.func,
+    data: PropTypes.array,
+    x: PropTypes.number,
+    y: PropTypes.number
+};
+  
+ContextMenu.defaultProps = {
+    isOpen: false,
+    reOpen: false
+};
 
 const putStateToProps = state => state.contextMenuReducer;
 

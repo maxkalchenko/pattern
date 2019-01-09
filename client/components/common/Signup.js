@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { signup } from '../../store/reducers/auth/actions';
-
 
 class Signup extends Component {
     constructor (props, context) {
@@ -84,6 +84,10 @@ class Signup extends Component {
         );
     }
 }
+
+Signup.propTypes = {
+    username: PropTypes.string
+};
 
 const putStateToProps = state => state.authReducer;
 

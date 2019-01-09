@@ -43,7 +43,7 @@ function getUser(user, res) {
                     username: user.get('username')
                 }, config.jwtSecret, {
                     // options:
-                    expiresIn: '1h'
+                    expiresIn: config.expiresIn
                 }),
                 // TODO: refactor
                 refresh_token: refresh
