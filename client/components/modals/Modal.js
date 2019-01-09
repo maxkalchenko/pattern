@@ -9,10 +9,17 @@ import modals from './modal-types';
 
 class Modal extends Component {
     render() {
-        let { isOpen, closeModal, type } = this.props;
+        let { isOpen, closeModal, type, data } = this.props;
 
         if (!isOpen) {
             return null;
+        }
+
+        if (data && data.onResolve && typeof data.onResolve === 'function') {
+            let { onResolve } = data;
+
+            data.onResolve = props => 
+                new Promise(resolve => { resolve(onResolve(props)); }).then(closeModal).catch(() => {});
         }
 
         return (
@@ -24,7 +31,7 @@ class Modal extends Component {
                                 <h4 className='modal-title'>{modals[type].title}</h4>
                                 <button type='button' onClick={closeModal} className='close'>&times;</button>
                             </div>
-                            {modals[type].modal}
+                            {modals[type].modal({ ...data, onClose: closeModal.bind(this) })}
                         </div>
                     </div>
                 </div>

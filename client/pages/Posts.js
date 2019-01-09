@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { add, get, remove, update } from '../store/reducers/posts/actions';
+import { openConfirmModal } from '../store/reducers/modal/actions';
 import { openContextMenu } from '../store/reducers/contextmenu/actions';
 
 class Posts extends Component {
@@ -22,6 +23,13 @@ class Posts extends Component {
         this.props.get();
     }
         
+    onRemove(post) {
+        this.props.openConfirmModal({
+            message: 'Are you sure you want to delete "' + post.text + '"?',
+            onResolve: () => this.props.remove(post)
+        });
+    }
+
     changeValue(val, event) {
         let state = {};
         state[val] = event.target.value;
@@ -74,7 +82,7 @@ class Posts extends Component {
                                 icon: 'fa-edit',
                                 check: username === post.username
                             }, {
-                                action: () => remove(post),
+                                action: () => this.onRemove(post),
                                 label: 'Delete',
                                 icon: 'fa-trash',
                                 check: username === post.username
@@ -93,7 +101,7 @@ class Posts extends Component {
                                     <div className='row'>
                                         {username === post.username ? <>
                                             <div className='col-md-11'>{post.text}</div>
-                                            <div className='col-md-1' onClick={() => remove(post)}>
+                                            <div className='col-md-1' onClick={() => this.onRemove(post)}>
                                                 <i className='fa fa-times'></i>
                                             </div>
                                         </> : <div className='col-md-12'>{post.text}</div>}
@@ -123,6 +131,7 @@ const putActionsToProps = (dispatch) => {
         get: bindActionCreators(get, dispatch),
         remove: bindActionCreators(remove, dispatch),
         update: bindActionCreators(update, dispatch),
+        openConfirmModal: bindActionCreators(openConfirmModal, dispatch),
         openContextMenu: bindActionCreators(openContextMenu, dispatch)
     };
 };

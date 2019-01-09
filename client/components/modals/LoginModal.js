@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { closeModal } from '../../store/reducers/modal/actions';
 import { auth } from '../../store/reducers/auth/actions';
 
 class LoginModal extends Component {
@@ -63,7 +62,7 @@ class LoginModal extends Component {
                 </div>
                 <div className='modal-footer'>
                     <button type='button' onClick={this.onLogin.bind(this)} className='btn btn-dark' disabled={fileds.some(field => field.error)}>Submit</button>
-                    <button type='button' onClick={this.props.closeModal} className='btn btn-danger'>Close</button>
+                    <button type='button' onClick={this.props.onClose} className='btn btn-danger'>Close</button>
                 </div>
             </>
         );
@@ -74,7 +73,6 @@ const putStateToProps = state => state;
 
 const putActionsToProps = (dispatch) => {
     return {
-        closeModal: bindActionCreators(closeModal, dispatch),
         auth: bindActionCreators(auth, dispatch)
     };
 };
