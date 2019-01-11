@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const ShowComment = ({ editMode, username, post, onRemove }) => (
+const ShowPost = ({ editMode, username, post, onRemove }) => (
     <>
         <div className='row'>
             {username === post.username ? <>
@@ -15,11 +15,11 @@ const ShowComment = ({ editMode, username, post, onRemove }) => (
     </>
 );
 
-ShowComment.propTypes = {
+ShowPost.propTypes = {
     editMode: PropTypes.bool,
     username: PropTypes.string,
     onRemove: PropTypes.func,
     post: PropTypes.object
 };
 
-export default ShowComment;
+export default ShowPost;

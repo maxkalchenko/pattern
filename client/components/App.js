@@ -8,6 +8,7 @@ import Modal from './modals/Modal';
 import ContextMenu from './contextmenu/ContextMenu'
 
 import Posts from '../pages/Posts';
+import News from '../pages/News';
 
 import '../styles/app.css';
 
@@ -32,6 +33,7 @@ class App extends Component {
                         <Switch>
                             <Route path='/signup' component={Signup}/>
                             <Route path='/community' component={Posts}/>
+                            <Route path='/news' component={News}/>
                             <Route component={component}/>
                         </Switch>
                     </div>

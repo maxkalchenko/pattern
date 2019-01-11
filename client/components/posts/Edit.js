@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-class EditComment extends Component {
+class EditPost extends Component {
     constructor (props, context) {
         super (props, context);
         
@@ -21,7 +21,7 @@ class EditComment extends Component {
         let { post, finishEdit } = this.props;
 
         return (
-            <form name='editCommentForm' onSubmit={this.save.bind(this)} className='col col-md-12'>
+            <form name='editPostForm' onSubmit={this.save.bind(this)} className='col col-md-12'>
                 <div className='form-group'>
                     <input autoFocus autoComplete='on' className='form-control' type='text' onChange={event => this.setState({ text: event.target.value })} value={this.state.text}/>
                 </div>
@@ -32,10 +32,10 @@ class EditComment extends Component {
     }
 }
 
-EditComment.propTypes = {
+EditPost.propTypes = {
     finishEdit: PropTypes.func,
     update: PropTypes.func,
     post: PropTypes.object
 };
 
-export default EditComment;
+export default EditPost;

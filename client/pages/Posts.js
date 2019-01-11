@@ -8,9 +8,9 @@ import { add, get, remove, update } from '../store/reducers/posts/actions';
 import { openConfirmModal } from '../store/reducers/modal/actions';
 import { openContextMenu } from '../store/reducers/contextmenu/actions';
 
-import AddComment from '../components/posts/AddComment';
-import ShowComment from '../components/posts/ShowComment';
-import EditComment from '../components/posts/EditComment';
+import AddPost from '../components/posts/Add';
+import ShowPost from '../components/posts/Show';
+import EditPost from '../components/posts/Edit';
 
 class Posts extends Component {
     constructor(props, context) {
@@ -72,12 +72,12 @@ class Posts extends Component {
                             <li key={post.id} className='list-group-item list-group-item-dark' 
                                 onContextMenu={event => !this.state.editMode && this.openContextMenuFor(post, event)}>
                                 {username && this.state.editId === post.id ?
-                                    <EditComment finishEdit={this.finishEdit.bind(this)} update={update.bind(this)} post={post}/> :
-                                    <ShowComment editMode={this.state.editMode} username={username} post={post} onRemove={this.onRemove.bind(this, post)}/>}
+                                    <EditPost finishEdit={this.finishEdit.bind(this)} update={update.bind(this)} post={post}/> :
+                                    <ShowPost editMode={this.state.editMode} username={username} post={post} onRemove={this.onRemove.bind(this, post)}/>}
                             </li>)}
                     </ul>
                 </div>              
-                {username && <AddComment add={this.props.add.bind(this)} editMode={this.state.editMode}/>}
+                {username && <AddPost add={this.props.add.bind(this)} editMode={this.state.editMode}/>}
             </div>
         );
     }
