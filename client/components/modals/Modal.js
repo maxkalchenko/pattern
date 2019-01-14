@@ -8,7 +8,7 @@ import { closeModal } from '../../store/reducers/modal/actions';
 
 import modals from './modal-types';
 
-const Modal = ({ isOpen, closeModal, type, data }) => {
+const Modal = ({ isOpen, closeModal, type, data, child }) => {
     if (!isOpen) {
         return null;
     }
@@ -36,7 +36,7 @@ const Modal = ({ isOpen, closeModal, type, data }) => {
                 </div>
             </div>
             <div className='modal-backdrop show'></div>
-            {/* <Modal/> */}
+            {child && <Modal isOpen={true} closeModal={closeModal.bind(this)} type={child.type} data={child.data} child={child.child}/>}
         </>
     );
 }
@@ -45,9 +45,10 @@ Modal.propTypes = {
     isOpen: PropTypes.bool,
     closeModal: PropTypes.func,
     type: PropTypes.string,
-    data: PropTypes.object
+    data: PropTypes.object,
+    child: PropTypes.object
 };
-  
+
 Modal.defaultProps = {
     isOpen: false
 };
