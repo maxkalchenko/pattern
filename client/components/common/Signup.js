@@ -32,15 +32,7 @@ class Signup extends Component {
     }
     
     render () {
-        // TODO: move to router
-        if (this.props.username) {
-            window.history.pushState({}, '', '/');
-            window.location.reload();
-
-            return null;
-        }
-
-        let fileds = [{
+        const fileds = [{
             name: 'username',
             label: 'Username:',
             type: 'text',

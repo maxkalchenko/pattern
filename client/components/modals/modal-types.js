@@ -11,14 +11,14 @@ export const CONFIRM_MODAL = 'CONFIRM_MODAL';
 export default {
     LOGIN_MODAL: {
         title: 'Login',
-        modal: props => <LoginModal onClose={props.onClose}/>
+        modal: props => <LoginModal {...props}/>
     },
     SHOPPING_CART_MODAL: {
         title: 'Shopping',
-        modal: props => <ShoppingCartModal onClose={props.onClose}/>
+        modal: props => <ShoppingCartModal {...props}/>
     },
     CONFIRM_MODAL: {
         title: 'Please confirm!',
-        modal: props => <ConfirmModal message={props.message} onResolve={props.onResolve} onClose={props.onClose}/>
+        modal: props => <ConfirmModal {...props}/>
     }
 };

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
+import { connect } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import Signup from './common/Signup';
@@ -31,7 +33,7 @@ class App extends Component {
                     <Navbar/>
                     <div className='container'>
                         <Switch>
-                            <Route path='/signup' component={Signup}/>
+                            {!this.props.username && <Route path='/signup' component={Signup}/>}
                             <Route path='/community' component={Posts}/>
                             <Route path='/news' component={News}/>
                             <Route component={component}/>
@@ -45,5 +47,11 @@ class App extends Component {
     }
 }
 
-export default App;
+App.propTypes = {
+    username: PropTypes.string
+};
+
+const putStateToProps = state => state.authReducer;
+
+export default connect(putStateToProps)(App);
 

@@ -16,10 +16,15 @@ const Modal = ({ isOpen, closeModal, type, data, child }) => {
     if (data) {
         let { onResolve } = data;
 
-        data.onResolve = props => 
-            new Promise(resolve => {
-                resolve((onResolve || (() => {}))(props));
-            }).then(closeModal).catch(() => {});
+        data.onResolve = async props => {
+            try {
+                const res = await (onResolve || (() => {}))(props);
+
+                return closeModal(res);
+            } catch (error) {
+                return Promise.reject(error);
+            }
+        };
     }
 
     return (
