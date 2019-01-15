@@ -1,6 +1,7 @@
 import express from 'express';
 import User from '../models/user';
 import jwt from 'jsonwebtoken';
+import CryptoJS from 'crypto-js';
 import config from '../config';
 
 let router = express.Router();
@@ -33,7 +34,9 @@ function getUser(user, res) {
         where: { username: identifier },
         orWhere: { email: identifier }
     }).fetch().then(user => {
-        if (user && password === user.get('password_digest')) {
+        const password_digest = CryptoJS.AES.decrypt(user.get('password_digest'), config.key).toString(CryptoJS.enc.Utf8)
+
+        if (user && password === password_digest) {
             let refresh = Date.now().toString();
 
             refreshTokens[refresh] = { identifier, password };

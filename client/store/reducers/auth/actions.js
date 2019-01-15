@@ -35,7 +35,10 @@ export const signup = user => {
             url: '/api/users',
             data: user
         }).then(() => {
-            auth(user.userName, user.password)(dispatch);
+            auth({
+                identifier: user.username,
+                password: user.password
+            })(dispatch);
         });
     };
 };

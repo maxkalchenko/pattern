@@ -1,5 +1,7 @@
 import express from 'express';
-// import bcrypt from 'bcrypt';
+import CryptoJS from 'crypto-js';
+import config from '../config';
+
 import { validateUnique, validateEmail, validateText, validatePassword } from '../utils/validators';
 import User from '../models/user';
 
@@ -27,12 +29,11 @@ router.post('/', (req, res) => {
 
     validateUnique(req.body, User, 'email', 'username')
         .then(errors => {
-            if (errors) {
+            if (Object.keys(errors).length) {
                 return res.status(400).json(errors);
             }
 
-            // const password_digest = bcrypt.hashSync(password, 10);
-            const password_digest = password;
+            const password_digest = CryptoJS.AES.encrypt(password, config.key).toString();
         
             User.forge({
                 username, email, password_digest
