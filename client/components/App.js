@@ -7,7 +7,8 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Signup from './common/Signup';
 import Navbar from './common/Navbar';
 import Modal from './modals/Modal';
-import ContextMenu from './contextmenu/ContextMenu'
+import ContextMenu from './contextmenu/ContextMenu';
+import Notification from './common/Notification';
 
 import Posts from '../pages/Posts';
 import News from '../pages/News';
@@ -30,6 +31,7 @@ class App extends Component {
         return (
             <BrowserRouter>
                 <div className='app'>
+                    <Notification/>
                     <Navbar/>
                     <div className='container'>
                         <Switch>
