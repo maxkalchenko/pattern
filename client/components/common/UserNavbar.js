@@ -8,6 +8,8 @@ import { bindActionCreators } from 'redux';
 import { openLoginModal, openShoppingCartModal } from '../../store/reducers/modal/actions';
 import { logout } from '../../store/reducers/auth/actions';
 
+import Language from './Language';
+
 const UserNavbar = ({ username, openLoginModal, logout, openShoppingCartModal }) => (
     <ul className='navbar-nav'>
         <li className='nav-item'>
@@ -28,6 +30,7 @@ const UserNavbar = ({ username, openLoginModal, logout, openShoppingCartModal })
                 <span className='badge badge-pill badge-light'>0</span>
             </i>
         </li>
+        <Language/>
     </ul>
 );
 

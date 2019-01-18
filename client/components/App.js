@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { withNamespaces } from 'react-i18next';
 
 import Signup from './common/Signup';
 import Navbar from './common/Navbar';
@@ -25,7 +26,7 @@ class App extends Component {
             <div className='text-center' style={{ paddingTop: '100px' }}>
                 <h1>Oops!</h1>
                 <h2>404 Not Found</h2>
-                <p>Sorry, an error has occured, Requested page not ready yet.</p>
+                <p>{this.props.t('ERROR', { item: 'page', artikel: 'Seite' })}</p>
             </div>;
 
         return (
@@ -55,5 +56,5 @@ App.propTypes = {
 
 const putStateToProps = state => state.authReducer;
 
-export default connect(putStateToProps)(App);
+export default withNamespaces()(connect(putStateToProps)(App));
 

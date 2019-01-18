@@ -1,0 +1,9 @@
+{
+    "CRUD": {
+        "CREATE": "{{item}} was successfully created",
+        "READ": "{{item}} was successfully loaded",
+        "UPDATE": "{{item}} was successfully updated",
+        "DELETE": "{{item}} was successfully removed"
+    },
+    "ERROR": "Sorry, an error has occured, {{item}} is not ready yet."
+}

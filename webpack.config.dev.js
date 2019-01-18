@@ -23,6 +23,10 @@ export default {
             test: /\.css$/,
             use: ['style-loader', 'css-loader'],
         }, {
+            test: /\.json$/,
+            type: 'javascript/auto',
+            use: ['json-loader'],
+        }, {
             test: /\.js$/,
             include: path.join(__dirname, 'client'),
             loaders: ['react-hot-loader/webpack', 'babel-loader']

@@ -1,0 +1,9 @@
+{
+    "CRUD": {
+        "CREATE": "{{artikel}} wurde erfolgreich erstellt",
+        "READ": "{{artikel}} wurde erfolgreich geladen",
+        "UPDATE": "{{artikel}} wurde erfolgreich aktualisiert",
+        "DELETE": "{{artikel}} wurde erfolgreich entfernt"
+    },
+    "ERROR": "Entschuldigung, ein Fehler ist aufgetreten, {{artikel}} ist noch nicht fertig."
+}

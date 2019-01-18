@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { t as translate } from 'i18next';
 
 import { GET_POSTS, CREATE_POST, DELETE_POST, UPDATE_POST } from '../../actions/action-types';
 import { info, success } from '../notification/actions';
@@ -10,7 +11,7 @@ export const add = data => {
             url: '/api/posts',
             data: data
         }).then(result => {
-            dispatch(success('Post was added successfully!'));
+            dispatch(success(translate('CRUD.CREATE', { item: 'Post', artikel: 'Post' })));
 
             dispatch({
                 type: CREATE_POST,
@@ -27,7 +28,7 @@ export const remove = data => {
             url: '/api/posts',
             data: data
         }).then(() => {
-            dispatch(success('Post was removed successfully!'));
+            dispatch(success(translate('CRUD.DELETE', { item: 'Post', artikel: 'Post' })));
 
             dispatch({
                 type: DELETE_POST,
@@ -44,7 +45,7 @@ export const update = data => {
             url: '/api/posts',
             data: data
         }).then(() => {
-            dispatch(success('Post was updated successfully!'));
+            dispatch(success(translate('CRUD.UPDATE', { item: 'Post', artikel: 'Post' })));
 
             dispatch({
                 type: UPDATE_POST,
@@ -61,7 +62,7 @@ export const get = user => {
             url: '/api/posts',
             data: user
         }).then(res => {
-            dispatch(info('Posts were loaded!'));
+            dispatch(info(translate('CRUD.READ', { item: 'Post', artikel: 'Post' })));
 
             dispatch({
                 type: GET_POSTS,
