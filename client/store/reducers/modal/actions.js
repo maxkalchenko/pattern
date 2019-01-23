@@ -1,6 +1,6 @@
 
 import { MODAL_OPEN, MODAL_CLOSE } from '../../actions/action-types';
-import { LOGIN_MODAL, SHOPPING_CART_MODAL, CONFIRM_MODAL } from '../../../components/modals/modal-types';
+import { LOGIN_MODAL, SHOPPING_CART_MODAL, CONFIRM_MODAL } from '../../../utils/modal-types';
 
 export const openLoginModal = () => {
     return {

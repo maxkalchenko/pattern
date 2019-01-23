@@ -45,4 +45,12 @@ router.post('/', (req, res) => {
         });
 });
 
+router.post('/validate', ({ body }, res) => {
+   validateUnique(body, User, Object.keys(body)[0])
+        .then(errors => {
+            return Object.keys(errors).length ? 
+                res.status(400).json(errors) : res.json({ success: true });
+        });
+});
+
 export default router;

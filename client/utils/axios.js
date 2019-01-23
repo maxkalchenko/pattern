@@ -3,6 +3,7 @@ import axios from 'axios';
 import { store } from '../store/store';
 import { openLoginModal } from '../store/reducers/modal/actions';
 import { error as errorNotification } from '../store/reducers/notification/actions';
+import { CANCELED } from './constants';
 
 export const defaults = token => {
     if (token) {
@@ -33,7 +34,7 @@ let refreshToken;
 
 axios.interceptors.response.use(res => res, error => {
     // TODO: add error messages from server
-    store.dispatch(errorNotification((error.response.data || {}).message));
+    error.message !== CANCELED && store.dispatch(errorNotification(((error.response || {}).data || {}).message));
 
     if ((error.response || {}).status !== 401) {    
         return Promise.reject(error);

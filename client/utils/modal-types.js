@@ -1,8 +1,8 @@
 import React from 'react';
 
-import LoginModal from './LoginModal';
-import ShoppingCartModal from './ShoppingCartModal';
-import ConfirmModal from './ConfirmModal';
+import LoginModal from '../components/modals/LoginModal';
+import ShoppingCartModal from '../components/modals/ShoppingCartModal';
+import ConfirmModal from '../components/modals/ConfirmModal';
 
 export const LOGIN_MODAL = 'LOGIN_MODAL';
 export const SHOPPING_CART_MODAL = 'SHOPPING_CART_MODAL';

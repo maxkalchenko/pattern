@@ -30,12 +30,12 @@ export const auth = params => {
 
 export const signup = user => {
     return dispatch => {
-        axios({
+        return axios({
             method: 'POST',
             url: '/api/users',
             data: user
         }).then(() => {
-            auth({
+            return auth({
                 identifier: user.username,
                 password: user.password
             })(dispatch);
@@ -45,9 +45,6 @@ export const signup = user => {
 
 export const logout = () => {
     localStorage.removeItem('token');
-
-    // window.history.pushState({}, '', '/');
-    // window.location.reload();
 
     return {
         type: LOGOUT

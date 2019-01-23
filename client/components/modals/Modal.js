@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 
 import { closeModal } from '../../store/reducers/modal/actions';
 
-import modals from './modal-types';
+import modals from '../../utils/modal-types';
 
 const Modal = ({ isOpen, closeModal, type, data, child }) => {
     if (!isOpen) {

@@ -33,7 +33,7 @@ export const validateUnique = (data, model, where, orWhere) => {
                     errors[where] = 'There is model with such ' + where;
                 }
 
-                if (user.get(orWhere) === data[orWhere]) {
+                if (orWhere && user.get(orWhere) === data[orWhere]) {
                     errors[orWhere] = 'There is model with such ' + orWhere;
                 }
             }
